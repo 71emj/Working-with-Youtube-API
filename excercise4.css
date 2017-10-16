@@ -1,0 +1,154 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: auto;
+}
+
+p {
+	font-family: "Source Serif", "Times New Roman", serif;
+}
+
+.banner {
+    position: relative;
+    /*background-color: #000;*/
+    color: #fff;
+    width: 100%;
+    overflow: hidden;
+}
+
+.banner_background {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 652px;
+    overflow: hidden;
+}
+
+.video-player {
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+
+/*	the trick to hide youtube logo is to create a huge iframe box, then offset the position of the 
+	video content, while setting the wrapping box's overflow value to hidden */
+
+
+/* .video-player--banner {
+  position: absolute;
+  /* (240 - 160) / 2 = 40 */
+
+
+/*
+  top: -40px;
+  left: -50%;
+  width: 200%;
+  height: calc(720px + 40px);
+} */
+
+
+/* however, this approach will create potential layout inconsistency problems or other related issues
+   I can't think about atm. Another approach demonstrated in another example is to use css attribute
+   pointer-events: none; to disable youtube hover */
+
+.video-player--banner {
+    position: absolute;
+    /* (864 - 724) / 2 = 70 */
+    top: -80px;
+    left: 0;
+    min-width: 100%;
+    min-height: 864px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+
+/* Unfortunately as great as this method is it creates a few draw backs:
+	1, the option to pause the video play by clicking on the video is is disabled as well
+	(which now thinking about it I realize I might be able to add it back by creating a transparent
+	layer on top of the video as event listener to pause the video, which also means that we probably
+	don't need the pointer-events: none)
+
+	2, the youtube logo and the info icon still shows up onload */
+
+.album-box {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: inherit;
+    background: #000;
+}
+
+.video-album {
+    opacity: 1;
+}
+
+.css-animate {
+    --webkit-transition: opacity linear 2400ms, background linear 2400ms;
+    -moz-transition: opacity linear 2400ms, background linear 2400ms;
+    -ms-transition: opacity linear 2400ms, background linear 2400ms;
+    -o-transition: opacity linear 2400ms, background linear 2400ms;
+    transition: opacity linear 2400ms, background linear 2400ms;
+}
+
+
+main>section.container {
+	padding: 6rem 2rem;
+}
+
+header.title {
+	height: 36px;
+	width: 100%;
+	margin: 2rem 0 6rem;
+}
+
+header.title>h2 {
+	font-family: "Droid Sans", "Helvetica", sans-serif;
+	font-size: 2rem;
+	line-height: 36px;
+	letter-spacing: 0.1rem;
+	color: #000;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+header.title sub {
+	font-family: "Droid Sans", "Helvetica", sans-serif;
+	font-size: 0.9rem;
+	line-height: 1;
+	color: #3e3e3e;
+	text-align: center;
+	text-transform: capitalize;
+}
+
+
+.blockquote {
+	text-align: center;
+	font-size: 2rem;
+	margin: 4rem 0;
+	font-family: "Crimson Text", "Times New Roman", serif;
+	font-weight: 400;
+	font-style: italic;
+}
+
+/*
+@media (min-screen: 1280px) {
+
+
+};
+
+*/
