@@ -1,80 +1,143 @@
-/* targets to manipulate in the original DOM tree*/
-const videoAlbum = document.querySelector('.video-album'),
-    albumBox = document.querySelector('.album-box'),
-    videoPlayer = document.querySelector('.video-player');
+(function() {
+    "use strict";
 
-/* setting up for youTube api */
-const scriptTag = document.createElement('script'),
-    firstScriptTag = document.getElementsByTagName('script')[0];
-scriptTag.src = "https://www.youtube.com/iframe_api";
-firstScriptTag.parentNode.insertBefore(scriptTag, firstScriptTag);
+    //change blockquote text, every once in a while
 
-let player;
+    (function changingBlockQuoteText() {
+        const blockQuote = document.querySelector('blockquote.blockquote'),
+            blkQuoteText = document.querySelectorAll('span.blkquote-contents');
 
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('youtube-video', {
-        events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+        function randomSel(randomNum) { return Math.floor(Math.random() * randomNum) };
+
+        function capitalizedQuote(string) {
+            const regExp = new RegExp(/[a-zA-Z]/),
+                firstAlphabet = string.slice(string.search(regExp), string.search(regExp) + 1);
+            return string = string.replace(regExp, firstAlphabet.toUpperCase());
         }
-    });
-}
 
-function onPlayerReady(e) {
-    console.log("hey Im ready");
-    //do whatever you want here. Like, player.playVideo();
-    e.target.playVideo();
-    e.target.mute();
-}
+        function fadeIn(target) {
+            return new Promise(function(resolve) {
+                target.style.opacity = 1;
+            })
+        }
 
-function timeEvent(timing, firstTarget, secondTarget) {
-    return new Promise(function(resolve) {
-        resolve(
-            setTimeout(function() {
-                firstTarget.style.background = 'transparent';
-                secondTarget.style.opacity = 0;
-                albumBox.style.cursor = 'pointer';
-            }, timing)
-        );
-    });
-}
+        function changeBlkQuote(timeOut, timeIn, prevText) {
+            let curText = capitalizedQuote(
+                blkQuoteText[randomSel(blkQuoteText.length)].textContent);
 
-function onPlayerStateChange(e) {
-    console.log("my state changed");
-    console.log(e.target.getPlayerState());
+            while (prevText === curText) {
+                curText = capitalizedQuote(
+                    blkQuoteText[randomSel(blkQuoteText.length)].textContent);
+            }
 
-    /* 1) getting the vidDuration to initiate ending event prior to video ending
-       thus able to create an illusion of an infinite loop.
-       2) 3 === 3000ms, the number set for css animation with a 0.6s margin */
-    let vidDuration = (e.target.getDuration() - 3) * 1000;
+            blockQuote.textContent = `" ${curText} "`;
 
-    switch (e.target.getPlayerState()) {
-        case 0:
-            setTimeout(function() {
-                e.target.playVideo();
-                console.log('Another playback starts now.');
-            }, 4000);
-            break;
-        case 1:
-            timeEvent(3000, albumBox, videoAlbum).then(function() {
+            fadeIn(blockQuote).then(setTimeout(function() {
+                blockQuote.style.opacity = 0;
                 setTimeout(function() {
-                    videoAlbum.style.opacity = 1;
-                    albumBox.style.background = '#000';
-                    albumBox.style.cursor = 'initial';
-                    console.log('My first successful Promise!! :)');
-                }, vidDuration);
-            });
-            break;
-    }
-}
+                    return changeBlkQuote(timeOut, timeIn, curText);
+                }, timeIn); 
+            }, timeOut));
+        }
 
-albumBox.addEventListener('click', function() {
-    if (player.getPlayerState() === 1) {
-        player.pauseVideo();
-    } else {
-        player.playVideo();
-    }
-})
+        changeBlkQuote(8000, 2400);
+
+    }());
+
+    //setting up youtube api 
+
+    (function settingUpYoutubeAPI() {
+
+        /* targets to manipulate in the original DOM tree*/
+        const videoAlbum = document.querySelector('.video-album'),
+            albumBox = document.querySelector('.album-box'),
+            videoPlayer = document.querySelector('.video-player');
+
+        /* setting up for youTube api */
+        const scriptTag = document.createElement('script'),
+            firstScriptTag = document.getElementsByTagName('script')[0];
+
+        scriptTag.src = "https://www.youtube.com/iframe_api";
+        firstScriptTag.parentNode.insertBefore(scriptTag, firstScriptTag);
+
+        let player;
+
+        //the youtube api needs to be called under the window object
+        window.onYouTubeIframeAPIReady = function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-video', {
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(e) {
+            console.log("hey Im ready");
+            e.target.playVideo();
+            e.target.mute();
+        }
+
+        function timeEvent(timing, firstTarget, secondTarget) {
+            return new Promise(function(resolve) {
+                resolve(
+                    setTimeout(function() {
+                        firstTarget.style.background = 'transparent';
+                        secondTarget.style.opacity = 0;
+                        albumBox.style.cursor = 'pointer';
+                    }, timing)
+                );
+            });
+        }
+
+        function onPlayerStateChange(e) {
+            console.log("my state changed");
+            console.log(e.target.getPlayerState());
+
+            /* 1) getting the vidDuration to initiate ending event prior to video ending
+               thus being able to create illusion of an infinite loop.
+               2) 3 === 3000ms, the number set for css animation with a 0.6s margin */
+            let vidDuration = (e.target.getDuration() - 3) * 1000;
+
+            /* using switch statement instead of if/else here is mostly for the purpose of
+               recylcling the code in the future (where I will actually need to check other 
+               state of the youtube player) */
+            switch (e.target.getPlayerState()) {
+                case 0:
+                    setTimeout(function() {
+                        e.target.playVideo();
+                        console.log('Another playback starts now.');
+                    }, 4000);
+                    break;
+                case 1:
+                    timeEvent(3000, albumBox, videoAlbum).then(function() {
+                        setTimeout(function() {
+                            videoAlbum.style.opacity = 1;
+                            albumBox.style.background = '#000';
+                            albumBox.style.cursor = 'initial';
+                            console.log('My first successful Promise!! :)');
+                        }, vidDuration);
+                    });
+                    break;
+            }
+        }
+
+        /* Since an invisible image is covering the video player to prevent hovering effect of 
+           youtube player, this function reattached pause function to the layer */
+        albumBox.addEventListener('click', function() {
+            if (player.getPlayerState() === 1) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        })
+
+    }());
+
+}());
+
+
+
 
 
 
