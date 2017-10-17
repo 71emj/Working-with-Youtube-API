@@ -12,7 +12,7 @@ The project aims to utilize youtube video as a background playback
   
   Tags in hierarchical pattern:
   
-    "<body>" ---> <header> | <main> | <footer>
+    <body> ---> header | <main> | <footer>
   
     <header> ----> <section.container> ----> <div.link-to-index> | <nav>
 
