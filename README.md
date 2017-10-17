@@ -12,16 +12,16 @@ The project aims to utilize youtube video as a background playback
   
   Tags in hierarchical pattern:
   
-    <body> ---> header | <main> | <footer>
+    \<body> ---> \<header> | \<main> | \<footer>
   
-    <header> ----> <section.container> ----> <div.link-to-index> | <nav>
+    \<header> ----> \<section.container> ----> \<div.link-to-index> | \<nav>
 
-    <main> -----> <section.content-header> | <section.content-body>
+    \<main> -----> \<section.content-header> | \<section.content-body>
       
       <section.content-header> ----->  /* video banner */  <div.album-box> | <iframe>
       <section.content-body> ----->  /* text & image content */  <article.content-body> | <ul.image-gallery> 
     
-    <footer> -----> <section.container> -----> <div.info> | <div.external-links>
+    \<footer> -----> \<section.container> -----> \<div.info> | \<div.external-links>
     
       <div.info> -----> <a.link-to-index(in this project, only to the top)> | <p.copyright-info>
       <div.external-links> -----> <div.link-group-one> | <div.link-group-two>....
