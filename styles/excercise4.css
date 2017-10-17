@@ -257,7 +257,7 @@ ul#image-gallery {
     cursor: pointer;
 }
 
-
+/* the media query is an endless chain of pain, thanks to youtube player cropping & borderless video banner effect */
 
 @media only screen and (max-width: 1280px) {
     .banner {
