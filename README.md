@@ -43,6 +43,7 @@ The project aims to utilize youtube video as a background playback
     youtube logo. However this technique creates a huge mess in layout, resulting in a endless train wreck of media queries.
   }
   
+  * note-for-future-reference: originally the image gallery is designed to be able to enlarge with a single page isolation effect 	     (balck, translucent background with image full size in the center of the page and scrollable), however as it turned out the             structure of the html and associated style rule makes it an incrediblly complex operation thus causing me to forfeit the attempt.
 
 - JavaScript
 
