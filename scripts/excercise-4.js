@@ -141,7 +141,6 @@
 
 
 
-
 /* fetch library - wiki api example snippets */
 /*
 fetch("https://en.wikipedia.org/w/api.php?&origin=*&action=opensearch&search=Ludwig_Mies_van_der_Rohe&limit=10").then(function(resp) {
