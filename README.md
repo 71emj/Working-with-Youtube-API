@@ -1,5 +1,5 @@
 # Working-with-Youtube-API
-This is an experimental project to use youtube video as background element to a webpage
+This is an experimental project using youtube video as background element to a webpage
 This reademe file is intended as a collection of notes to the obstacles encountered during production.
 
 
@@ -47,55 +47,34 @@ The project aims to utilize youtube video as a background playback
 
 - JavaScript
 
-  * note: tbd
+  * note: there are two js file links to the page. As part of another project the webpage inherit the script that is used to define 	     common visual effect share across all pages of the project. The main 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
-  
 
 
 
-
-
-
-
-
-
-
-
-/*	the trick to hide youtube logo is to create a huge iframe box, then offset the position of the 
-	video content, while setting the wrapping box's overflow value to hidden */
-
-
-/* .video-player--banner {
-  position: absolute;
-  /* (240 - 160) / 2 = 40 */
-
-
-/*
-  top: -40px;
-  left: -50%;
-  width: 200%;
-  height: calc(720px + 40px);
-} */
-
-
-/* however, this approach will create potential layout inconsistency problems or other related issues
-   I can't think about atm. Another approach demonstrated in another example is to use css attribute
-   pointer-events: none; to disable youtube hover */
-
-
-/* Unfortunately as great as this method is it creates a few draw backs:
-	1, the option to pause the video play by clicking on the video is is disabled as well
-	(which now thinking about it I realize I might be able to add it back by creating a transparent
-	layer on top of the video as event listener to pause the video, which also means that we probably
-	don't need the pointer-events: none)
-
-	2, the youtube logo and the info icon still shows up onload */
-
-
-/*
-@media (min-screen: 1280px) {
-
-
-};
-
-*/
