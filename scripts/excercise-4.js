@@ -65,7 +65,7 @@
 
         // the youtube object needs to be called under the window object
         window.onYouTubeIframeAPIReady = function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-video', {
+            return player = new YT.Player('youtube-video', {
                 events: {
                     'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange
