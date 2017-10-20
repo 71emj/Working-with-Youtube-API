@@ -1,4 +1,4 @@
-(function() {
+(function () {
     "use strict";
 
     // change blockquote text, every once in a while
@@ -7,7 +7,9 @@
         const blockQuote = document.querySelector('blockquote.blockquote'),
             blkQuoteText = document.querySelectorAll('span.blkquote-contents');
 
-        function randomSel(randomNum) { return Math.floor(Math.random() * randomNum) };
+        function randomSel(randomNum) {
+            return Math.floor(Math.random() * randomNum);
+        }
 
         function capitalizedQuote(string) {
             const regExp = new RegExp(/[a-zA-Z]/),
@@ -16,9 +18,9 @@
         }
 
         function fadeIn(target) {
-            return new Promise(function(resolve) {
+            return new Promise(function (resolve) {
                 target.style.opacity = 1;
-            })
+            });
         }
 
         function changeBlkQuote(timeOut, timeIn, prevText) {
@@ -32,10 +34,10 @@
 
             blockQuote.textContent = `" ${curText} "`;
 
-            fadeIn(blockQuote).then(setTimeout(function() {
+            fadeIn(blockQuote).then(setTimeout(function () {
                 blockQuote.style.opacity = 0;
                 // timeout is set exactly after css transisiton is executed, timeIn === 'opacity ease-in 2400ms'
-                setTimeout(function() {
+                setTimeout(function () {
                     return changeBlkQuote(timeOut, timeIn, curText);
                 }, timeIn); 
             }, timeOut));
@@ -51,7 +53,7 @@
 
         /* targets to manipulate in the original DOM tree*/
         const videoAlbum = document.querySelector('.video-album'),
-            albumBox = document.querySelector('.album-box');
+            albumBox = document.querySelector('.album-box')
 
         /* setting up for youTube api */
         const scriptTag = document.createElement('script'),
@@ -81,7 +83,7 @@
         function timeEvent(timing, firstTarget, secondTarget) {
             return new Promise(function(resolve) {
                 resolve(
-                    setTimeout(function() {
+                    setTimeout(function () {
                         firstTarget.style.background = 'transparent';
                         firstTarget.style.cursor = 'pointer';
                         secondTarget.style.opacity = 0;
@@ -104,14 +106,14 @@
                state of the youtube player) */
             switch (e.target.getPlayerState()) {
                 case 0:
-                    setTimeout(function() {
+                    setTimeout(function () {
                         e.target.playVideo();
                         console.log('Another playback starts now.');
                     }, 4000);
                     break;
                 case 1:
                     timeEvent(3000, albumBox, videoAlbum).then(function() {
-                        setTimeout(function() {
+                        setTimeout(function () {
                             videoAlbum.style.opacity = 1;
                             albumBox.style.background = '#000';
                             albumBox.style.cursor = 'initial';
@@ -129,9 +131,9 @@
         albumBox.addEventListener('click', function() {
             /* I replace the original piece of if/else statement 
                with simple operator */
-            (player.getPlayerState() === 1 && player.pauseVideo()) 
+            (player.getPlayerState() === 1 && player.pauseVideo())
                 || player.playVideo();
-        });
+        })
 
     }());
 
