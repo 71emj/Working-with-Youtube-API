@@ -1,7 +1,7 @@
 (function() {
     "use strict";
 
-    //change blockquote text, every once in a while
+    // change blockquote text, every once in a while
 
     (function changingBlockQuoteText() {
         const blockQuote = document.querySelector('blockquote.blockquote'),
@@ -34,6 +34,7 @@
 
             fadeIn(blockQuote).then(setTimeout(function() {
                 blockQuote.style.opacity = 0;
+                // timeout is set exactly after css transisiton is executed, timeIn === 'opacity ease-in 2400ms'
                 setTimeout(function() {
                     return changeBlkQuote(timeOut, timeIn, curText);
                 }, timeIn); 
@@ -44,7 +45,7 @@
 
     }());
 
-    //setting up youtube api 
+    // setting up youtube api 
 
     (function settingUpYoutubeAPI() {
 
@@ -62,7 +63,7 @@
 
         let player;
 
-        //the youtube object needs to be called under the window object
+        // the youtube object needs to be called under the window object
         window.onYouTubeIframeAPIReady = function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-video', {
                 events: {
@@ -83,8 +84,8 @@
                 resolve(
                     setTimeout(function() {
                         firstTarget.style.background = 'transparent';
+                        firstTarget.style.cursor = 'pointer';
                         secondTarget.style.opacity = 0;
-                        albumBox.style.cursor = 'pointer';
                     }, timing)
                 );
             });
@@ -119,24 +120,23 @@
                         }, vidDuration);
                     });
                     break;
+                default:
+                    console.log('Video not playing...for some reason ;(');
             }
         }
 
         /* Since an invisible image is covering the video player to prevent hovering effect of 
            youtube player, this function reattached pause function to the layer */
         albumBox.addEventListener('click', function() {
-            if (player.getPlayerState() === 1) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
+            /* I replace the original piece of if/else statement 
+               with simple operator */
+            (player.getPlayerState() === 1 && player.pauseVideo())
+                || player.playVideo();
         })
 
     }());
 
 }());
-
-
 
 
 
