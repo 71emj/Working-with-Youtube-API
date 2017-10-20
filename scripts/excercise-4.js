@@ -51,8 +51,7 @@
 
         /* targets to manipulate in the original DOM tree*/
         const videoAlbum = document.querySelector('.video-album'),
-            albumBox = document.querySelector('.album-box'),
-            videoPlayer = document.querySelector('.video-player');
+            albumBox = document.querySelector('.album-box');
 
         /* setting up for youTube api */
         const scriptTag = document.createElement('script'),
@@ -130,9 +129,9 @@
         albumBox.addEventListener('click', function() {
             /* I replace the original piece of if/else statement 
                with simple operator */
-            (player.getPlayerState() === 1 && player.pauseVideo())
+            (player.getPlayerState() === 1 && player.pauseVideo()) 
                 || player.playVideo();
-        })
+        });
 
     }());
 
