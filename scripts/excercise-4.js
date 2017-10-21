@@ -39,7 +39,7 @@
                 // timeout is set exactly after css transisiton is executed, timeIn === 'opacity ease-in 2400ms'
                 setTimeout(function () {
                     return changeBlkQuote(timeOut, timeIn, curText);
-                }, timeIn); 
+                }, timeIn);
             }, timeOut));
         }
 
@@ -81,7 +81,7 @@
         }
 
         function timeEvent(timing, firstTarget, secondTarget) {
-            return new Promise(function(resolve) {
+            return new Promise(function (resolve) {
                 resolve(
                     setTimeout(function () {
                         firstTarget.style.background = 'transparent';
@@ -112,7 +112,7 @@
                     }, 4000);
                     break;
                 case 1:
-                    timeEvent(3000, albumBox, videoAlbum).then(function() {
+                    timeEvent(3000, albumBox, videoAlbum).then(function () {
                         setTimeout(function () {
                             videoAlbum.style.opacity = 1;
                             albumBox.style.background = '#000';
@@ -128,10 +128,10 @@
 
         /* Since an invisible image is covering the video player to prevent hovering effect of 
            youtube player, this function reattached pause function to the layer */
-        albumBox.addEventListener('click', function() {
+        albumBox.addEventListener('click', function () {
             /* I replace the original piece of if/else statement 
                with simple operator */
-            (player.getPlayerState() === 1 && player.pauseVideo())
+            (player.getPlayerState() === 1 && player.pauseVideo()) 
                 || player.playVideo();
         })
 
